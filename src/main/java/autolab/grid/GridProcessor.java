@@ -17,6 +17,7 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.MultiPoint;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.util.AffineTransformation;
+import org.locationtech.jts.geom.util.AffineTransformationBuilder;
 import ika.proj.ProjectionFactors;
 import java.awt.geom.Point2D;
 import javax.swing.BoundedRangeModel;
@@ -744,7 +745,7 @@ public class GridProcessor {
         
         double phiScale = dFactor * factors.k;
         
-        MultiPoint kernel = gfact.createMultiPoint(coords);
+        MultiPoint kernel = gfact.createMultiPointFromCoords(coords);
         
         Coordinate c11 = new Coordinate(0,0);
         Coordinate c12 = new Coordinate(0,0);
@@ -756,7 +757,7 @@ public class GridProcessor {
         Coordinate c32 = new Coordinate(phiScale * Math.cos(factors.conv2),
                                         phiScale * Math.sin(factors.conv2));
         
-        AffineTransformation at = new AffineTransformation(c11, c12, c21, c22, c31, c32);
+        AffineTransformation at = new AffineTransformationBuilder(c11, c21, c31, c12, c22, c32).getTransformation();
         
         kernel = (MultiPoint)at.transform(kernel);
         return kernel.getCoordinates();

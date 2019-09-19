@@ -371,7 +371,7 @@ public class MainWindow extends javax.swing.JFrame {
         mainToolBar.setForeground(new java.awt.Color(255, 255, 255));
         mainToolBar.setRollover(true);
 
-        loadButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autolab/gui/addRaster_32.png"))); // NOI18N
+        loadButton.setIcon(new javax.swing.ImageIcon("/Users/tsamsonov/GitHub/variable-kernels/src/main/java/autolab/gui/addRaster_32.png")); // NOI18N
         loadButton.setBorderPainted(false);
         loadButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loadButton.setFocusable(false);
@@ -398,7 +398,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         naviButtonGroup.add(panButton);
         panButton.setFont(new java.awt.Font("Euphemia UCAS", 0, 11)); // NOI18N
-        panButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autolab/gui/PanBlue16x16.png"))); // NOI18N
+        panButton.setIcon(new javax.swing.ImageIcon("/Users/tsamsonov/GitHub/variable-kernels/src/main/java/autolab/gui/PanBlue16x16.png")); // NOI18N
         panButton.setText("Pan");
         panButton.setToolTipText("");
         panButton.setFocusable(false);
@@ -413,7 +413,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         naviButtonGroup.add(zoomInButton);
         zoomInButton.setFont(new java.awt.Font("Euphemia UCAS", 0, 11)); // NOI18N
-        zoomInButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autolab/gui/ZoomInBlue16x16.png"))); // NOI18N
+        zoomInButton.setIcon(new javax.swing.ImageIcon("/Users/tsamsonov/GitHub/variable-kernels/src/main/java/autolab/gui/ZoomInBlue16x16.png")); // NOI18N
         zoomInButton.setText("Zoom In");
         zoomInButton.setFocusable(false);
         zoomInButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -427,7 +427,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         naviButtonGroup.add(zoomOutButton);
         zoomOutButton.setFont(new java.awt.Font("Euphemia UCAS", 0, 11)); // NOI18N
-        zoomOutButton.setIcon(new javax.swing.ImageIcon("/Volumes/Dropbox/Dropbox/NetBeans/Autolab/Icons/ZoomOutBlue16x16.png")); // NOI18N
+        zoomOutButton.setIcon(new javax.swing.ImageIcon("/Users/tsamsonov/GitHub/variable-kernels/src/main/java/autolab/gui/ZoomOutBlue16x16.png")); // NOI18N
         zoomOutButton.setText("Zoom Out");
         zoomOutButton.setToolTipText("");
         zoomOutButton.setFocusable(false);
@@ -441,7 +441,7 @@ public class MainWindow extends javax.swing.JFrame {
         naviToolbar.add(zoomOutButton);
 
         naviButtonGroup.add(selectButton);
-        selectButton.setIcon(new javax.swing.ImageIcon("/Volumes/Dropbox/Dropbox/NetBeans/Autolab/Icons/ArrowBlue16x16.png")); // NOI18N
+        selectButton.setIcon(new javax.swing.ImageIcon("/Users/tsamsonov/GitHub/variable-kernels/src/main/java/autolab/gui/ArrowBlue16x16.png")); // NOI18N
         selectButton.setSelected(true);
         selectButton.setText("Select");
         selectButton.setFocusable(false);
@@ -570,14 +570,14 @@ public class MainWindow extends javax.swing.JFrame {
 
         kernelGroup.add(squareButton);
         squareButton.setFont(new java.awt.Font("Euphemia UCAS", 0, 11)); // NOI18N
-        squareButton.setIcon(new javax.swing.ImageIcon("/Volumes/Dropbox/Dropbox/NetBeans/Icons/Square.png")); // NOI18N
+        squareButton.setIcon(new javax.swing.ImageIcon("/Users/tsamsonov/GitHub/variable-kernels/src/main/java/autolab/gui/Square.png")); // NOI18N
         squareButton.setSelected(true);
         squareButton.setText("Square");
         jToolBar1.add(squareButton);
 
         kernelGroup.add(circleButton);
         circleButton.setFont(new java.awt.Font("Euphemia UCAS", 0, 11)); // NOI18N
-        circleButton.setIcon(new javax.swing.ImageIcon("/Volumes/Dropbox/Dropbox/NetBeans/Icons/Circel.png")); // NOI18N
+        circleButton.setIcon(new javax.swing.ImageIcon("/Users/tsamsonov/GitHub/variable-kernels/src/main/java/autolab/gui/Circel.png")); // NOI18N
         circleButton.setText("Circle");
         jToolBar1.add(circleButton);
 
@@ -1656,33 +1656,33 @@ public class MainWindow extends javax.swing.JFrame {
             meanData.setText(numFormat.format(grid.getMean()));
             mrsqData.setText(numFormat.format(grid.getMrsq()));
 
-            procName.setText("Calculating areal distortions");
-
-            progressBar.setIndeterminate(false);
-
-            gp.setFilterMethod(Stats.FilterMethod.DISTAREAL);
-
-            map.showCursor(true);
-            gp.execute(progressModel, map.getCursor());
-            map.showCursor(false);
-
-            Geogrid distgrid = gp.getResult();
-            distgrid.calculateStatistics();
-            distgrid.calculateWeightedStatistics(distgrid);
-            distLayer = new GridLayer(distgrid);
-            distLayer.setVisible(false);
-
-            ((MapPanel)(GLPanel)).stop();
-            // Layer 4: areal distortions
-            map.addLayer(distLayer);
-            ((MapPanel)(GLPanel)).start();
-
-            progressBar.setIndeterminate(true);
-            procName.setText("Calculating weighted statistics");
-
-            grid.calculateWeightedStatistics(distLayer.getGrid());
-            meanCorrData.setText(numFormat.format(grid.getWeightedMean()));
-            mrsqCorrData.setText(numFormat.format(grid.getWeightedMrsq()));
+//            procName.setText("Calculating areal distortions");
+//
+//            progressBar.setIndeterminate(false);
+//
+//            gp.setFilterMethod(Stats.FilterMethod.DISTAREAL);
+//
+//            map.showCursor(true);
+//            gp.execute(progressModel, map.getCursor());
+//            map.showCursor(false);
+//
+//            Geogrid distgrid = gp.getResult();
+//            distgrid.calculateStatistics();
+//            distgrid.calculateWeightedStatistics(distgrid);
+//            distLayer = new GridLayer(distgrid);
+//            distLayer.setVisible(false);
+//
+//            ((MapPanel)(GLPanel)).stop();
+//            // Layer 4: areal distortions
+//            map.addLayer(distLayer);
+//            ((MapPanel)(GLPanel)).start();
+//
+//            progressBar.setIndeterminate(true);
+//            procName.setText("Calculating weighted statistics");
+//
+//            grid.calculateWeightedStatistics(distLayer.getGrid());
+//            meanCorrData.setText(numFormat.format(grid.getWeightedMean()));
+//            mrsqCorrData.setText(numFormat.format(grid.getWeightedMrsq()));
 
             gp.setFilterMethod(Stats.FilterMethod.MEAN);
 
@@ -1734,9 +1734,9 @@ public class MainWindow extends javax.swing.JFrame {
             meanData.setText(numFormat.format(result.getMean()));
             mrsqData.setText(numFormat.format(result.getMrsq()));
 
-            result.calculateWeightedStatistics(distLayer.getGrid());
-            meanCorrData.setText(numFormat.format(result.getWeightedMean()));
-            mrsqCorrData.setText(numFormat.format(result.getWeightedMrsq()));
+//            result.calculateWeightedStatistics(distLayer.getGrid());
+//            meanCorrData.setText(numFormat.format(result.getWeightedMean()));
+//            mrsqCorrData.setText(numFormat.format(result.getWeightedMrsq()));
 
             progressModel.setValue(100);
 
