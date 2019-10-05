@@ -77,6 +77,11 @@ public class TrapezoidalSurface extends AbstractSurface{
                 latlon2 = grid.getXYfromIJ(i+1, j-1);
                 e = GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1]);
                 
+                p = ((a * a * c * d * (d + e) * (z3 - z1) +
+                      b * (a* a * d * d + c * c * e * e) * (z6 - z4) +
+                      a * c * c * e * (d + e) * (z9 - z7)
+                     ) / (a * a * c * c * (d + e) * (d + e) + b * b * (a * a * d * d + c * c * e * e))
+                    ) / 2;
                 
                 initialized = true;
             }
