@@ -31,11 +31,12 @@ public class GridProcessor {
     public enum ProcessingType{
         SIMPLE,
         AFFINE,
-        DIRECT
+        DIRECT,
+        TRAPEZOIDAL
     }
     
     ProcessingType processingType;
-    
+
     private static final double EPS = 1e-4;
     
     /*
@@ -224,7 +225,9 @@ public class GridProcessor {
                 
                 if(processingType == ProcessingType.SIMPLE){
                     surface = new ZevenbergenSurface(grid, i, j);
-                } else{
+                } else if(processingType == ProcessingType.TRAPEZOIDAL) {
+                
+                } else {
                     
                     Point p = gfact.createPoint(new Coordinate(coords[0], coords[1]));
 
