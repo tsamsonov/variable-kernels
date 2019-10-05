@@ -13,8 +13,8 @@ import org.locationtech.jts.geom.Coordinate;
  */
 public class TrapezoidalSurface extends AbstractSurface{
     
-    double A = 2.0;
-    double B = 1.0;
+    double a_axis = 1.5d;
+    double b_axis = 1.0d;
     
     double a, b, c, d, e; // distances on ellipsoid
     
@@ -77,12 +77,41 @@ public class TrapezoidalSurface extends AbstractSurface{
                 latlon2 = grid.getXYfromIJ(i+1, j-1);
                 e = GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1]);
                 
-                p = ((a * a * c * d * (d + e) * (z3 - z1) +
-                      b * (a* a * d * d + c * c * e * e) * (z6 - z4) +
-                      a * c * c * e * (d + e) * (z9 - z7)
-                     ) / (a * a * c * c * (d + e) * (d + e) + b * b * (a * a * d * d + c * c * e * e))
-                    ) / 2;
+                double a2 = a * a;
+                double b2 = b * b;
+                double c2 = c * c;
+                double d2 = d * d;
+                double e2 = e * e;
+                double a4 = a2 * a2;
+                double b4 = b2 * b2;
+                double c4 = c2 * c2;
                 
+                
+                double A = (z3 - z1) * a2 * c * d * (d + e) +
+                           (z6 - z4) * b * (a2 * d2 + c2 * e2) +
+                           (z9 - z7) * a * c2 * e * (d + e);
+                
+                double B = (a2 * c2 * (d + e) * (d + e) + 
+                            b2 * (a2 * d2 + c2 * e2)) * 2;
+                
+                p = A / B;
+                
+                double C =  (z1 + z3) * (d2 * (a4 + b4 + b2 * c2) + c2 * e2 * (a2 - b2));
+                
+                double D =  (z4 + z6) * (d2 * (a4 + c4 + b2 * c2) - e2 * (a4 + c4 + a2 * b2));
+                
+                double E =  (z7 + z9) * (e2 * (b4 + c4 + a2 * b2) - a2 * d2 * (b2 - c2));
+                
+                double F = ((z2 - z5) * (a4 - 2 * b2 * c2) + (3 * z2 - z5) * c4 + (z2 - 3 * z5) * b4) * d2;
+                
+                double G = ((z5 - z8) * (c4 - 2 * a2 * b2) + (3 * z5 - z8) * b4 + (z5 - 3 * z8) * a4) * e2;
+                
+                double H = (z2 * c2 * e2 * (a2 - b2) + z8 * a2 * d2* (b2 - c2)) * 2;
+                
+                double I = d * e * (d + e) * (a4 + b4 + c4) * 3;
+                
+                q = (C - D - E + F + G - H) / I;
+                        
                 initialized = true;
             }
         }
