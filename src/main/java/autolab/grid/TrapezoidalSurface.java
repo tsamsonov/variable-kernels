@@ -123,9 +123,7 @@ public class TrapezoidalSurface extends AbstractSurface{
      */
     @Override
     public float getSlope(){
-//        return (float)Math.atan(zFactor * Math.sqrt(G*G + H*H));
-
-        return 0.0f;
+        return (float)Math.atan(zFactor * Math.sqrt(p*p + q*q));
     }
 
     /**
@@ -136,37 +134,35 @@ public class TrapezoidalSurface extends AbstractSurface{
      */
     @Override
     public float getHillshade(double azimuth, double height) {
-//        double Lx = Math.cos(height)*Math.cos(azimuth);
-//        double Ly = Math.cos(height)*Math.sin(azimuth);
-//        double Lz = Math.sin(height);
-//        
-//        double Nx = G * zFactor;
-//        double Ny = H * zFactor;
-//        double Nz = 1;
-//        
-//        double L = Math.sqrt(Lx*Lx + Ly*Ly + Lz*Lz);
-//        double N = Math.sqrt(Nx*Nx + Ny*Ny + Nz*Nz);
-//        
-//        float intensity = (float) ((Lx*Nx + Ly*Ny + Lz*Nz) / (L*N));
-//        
-//        return intensity;
-        return 0.0f;
+        double Lx = Math.cos(height)*Math.cos(azimuth);
+        double Ly = Math.cos(height)*Math.sin(azimuth);
+        double Lz = Math.sin(height);
+        
+        double Nx = p * zFactor;
+        double Ny = q * zFactor;
+        double Nz = 1;
+        
+        double L = Math.sqrt(Lx*Lx + Ly*Ly + Lz*Lz);
+        double N = Math.sqrt(Nx*Nx + Ny*Ny + Nz*Nz);
+        
+        float intensity = (float) ((Lx*Nx + Ly*Ny + Lz*Nz) / (L*N));
+        
+        return intensity;
     }
 
     @Override
     public float getAspect() {
-//        float aspect = (float) (Math.atan2(G, H));
-//        if(aspect>0){
-//            if(aspect <= 0.5*Math.PI){
-//                aspect = (float) (0.5*Math.PI - aspect);
-//            } else {
-//                aspect = (float) (2.5 * Math.PI - aspect);
-//            }
-//        } else {
-//            aspect = (float) (0.5*Math.PI - aspect);
-//        }
-//        return aspect;
-        return 0.0f;
+        float aspect = (float) (Math.atan2(p, q));
+        if(aspect>0){
+            if(aspect <= 0.5*Math.PI){
+                aspect = (float) (0.5*Math.PI - aspect);
+            } else {
+                aspect = (float) (2.5 * Math.PI - aspect);
+            }
+        } else {
+            aspect = (float) (0.5*Math.PI - aspect);
+        }
+        return aspect;
     }
 
     @Override
