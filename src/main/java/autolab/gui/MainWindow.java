@@ -219,6 +219,7 @@ public class MainWindow extends javax.swing.JFrame {
         fixButton = new javax.swing.JButton();
         dirButton = new javax.swing.JButton();
         trpButton = new javax.swing.JButton();
+        setProjectionButton = new javax.swing.JButton();
         rightPanel = new javax.swing.JPanel();
         rasterPanel = new javax.swing.JPanel();
         sourceButton = new javax.swing.JRadioButton();
@@ -801,7 +802,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         trpButton.setFont(new java.awt.Font("Euphemia UCAS", 1, 13)); // NOI18N
         trpButton.setForeground(new java.awt.Color(153, 0, 51));
-        trpButton.setText("Trp");
+        trpButton.setText("Tpz");
         trpButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         trpButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         trpButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -818,12 +819,48 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        setProjectionButton.setFont(new java.awt.Font("Euphemia UCAS", 1, 10)); // NOI18N
+        setProjectionButton.setForeground(new java.awt.Color(0, 153, 153));
+        setProjectionButton.setText("Set");
+        setProjectionButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        setProjectionButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        setProjectionButton.setMinimumSize(new java.awt.Dimension(12, 10));
+        setProjectionButton.setPreferredSize(new java.awt.Dimension(12, 10));
+        setProjectionButton.setSize(new java.awt.Dimension(97, 10));
+        setProjectionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setProjectionButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout procPanelLayout = new javax.swing.GroupLayout(procPanel);
         procPanel.setLayout(procPanelLayout);
         procPanelLayout.setHorizontalGroup(
             procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(procPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(zLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(zSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(projectionBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(procPanelLayout.createSequentialGroup()
                 .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(procPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(operationBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(procPanelLayout.createSequentialGroup()
+                                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(procPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tissotSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                     .addComponent(kernelSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(procPanelLayout.createSequentialGroup()
                         .addContainerGap()
@@ -837,78 +874,50 @@ public class MainWindow extends javax.swing.JFrame {
                     .addGroup(procPanelLayout.createSequentialGroup()
                         .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(procPanelLayout.createSequentialGroup()
-                                .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(procPanelLayout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(3, 3, 3)
-                                        .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(phiSpinner)
-                                            .addComponent(latSpinner)))
-                                    .addComponent(tissotBox))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(clipBox))
-                            .addComponent(graticuleBox)
-                            .addGroup(procPanelLayout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap()
+                                .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(3, 3, 3)
-                                .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lamSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(longSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(procPanelLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel13))
-                            .addGroup(procPanelLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(voronoyBox))
-                            .addGroup(procPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(kernelSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(procPanelLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel1)
-                                .addGap(26, 26, 26)
-                                .addComponent(projectionDetailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(procPanelLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(phiSpinner)
+                                    .addComponent(latSpinner)))
+                            .addComponent(tissotBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(clipBox))
+                    .addComponent(graticuleBox)
                     .addGroup(procPanelLayout.createSequentialGroup()
-                        .addComponent(operationBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGap(91, 91, 91)
+                        .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)
+                        .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lamSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(longSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(procPanelLayout.createSequentialGroup()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel13))
                     .addGroup(procPanelLayout.createSequentialGroup()
-                        .addComponent(projectionBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(6, 6, 6))
-                    .addGroup(procPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tissotSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())))
-            .addGroup(procPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(zLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(zSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(voronoyBox))
+                    .addGroup(procPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(kernelSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(procPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(projectionDetailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(setProjectionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         procPanelLayout.setVerticalGroup(
             procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -916,7 +925,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(projectionDetailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(projectionDetailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(setProjectionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(projectionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2262,16 +2272,16 @@ public class MainWindow extends javax.swing.JFrame {
             Projection newProjection = dialog.getModifiedProjection();
             if(newProjection != null){
                 projection = newProjection;
-                Thread loadThread;
-                loadThread = new Thread(new Runnable(){
-                    @Override
-                    public void run(){
-                        fireProjectionChanged();
-                    }
-
-                });
-
-                loadThread.start();
+//                Thread loadThread;
+//                loadThread = new Thread(new Runnable(){
+//                    @Override
+//                    public void run(){
+//                        fireProjectionChanged();
+//                    }
+//
+//                });
+//
+//                loadThread.start();
             }
         }
     }
@@ -2483,16 +2493,6 @@ public class MainWindow extends javax.swing.JFrame {
         projection = ProjectionFactory.getNamedProjection((String)projectionBox.getSelectedItem());
         projection.setEllipsoid(Ellipsoid.SPHERE);
         projection.initialize();
-        Thread loadThread;
-        loadThread = new Thread(new Runnable(){
-            @Override
-            public void run(){
-                fireProjectionChanged();
-            }
-
-        });
-
-        loadThread.start();
     }//GEN-LAST:event_projectionBoxActionPerformed
 
     private void GLPanelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GLPanelMouseMoved
@@ -2608,6 +2608,19 @@ public class MainWindow extends javax.swing.JFrame {
 
         loadThread.start();
     }//GEN-LAST:event_trpButtonActionPerformed
+
+    private void setProjectionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setProjectionButtonActionPerformed
+        Thread loadThread;
+        loadThread = new Thread(new Runnable(){
+            @Override
+            public void run(){
+                fireProjectionChanged();
+            }
+
+        });
+
+        loadThread.start();
+    }//GEN-LAST:event_setProjectionButtonActionPerformed
 
     private void fireHistogramStretchChanged(){
         GridLayer lyr = sourceLayer;
@@ -2772,6 +2785,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton sButton;
     private javax.swing.JRadioButton scaleButton;
     private javax.swing.JToggleButton selectButton;
+    private javax.swing.JButton setProjectionButton;
     private javax.swing.JRadioButton sourceButton;
     private javax.swing.JToggleButton squareButton;
     private javax.swing.JPanel statsPanel;
