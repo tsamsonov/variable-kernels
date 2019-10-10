@@ -129,6 +129,11 @@ public class GridProcessor {
     D-factor used for calculations. Every distance is multiplied by dFactor
     */
     private float dFactor = 1.0f;
+    
+    /*
+    Scale used for trapezoidal calculations on the sphere
+    */
+    private double scale = 1.0d; 
             
     public GridProcessor(Geogrid g, Projection p){
         projection = p;
@@ -138,6 +143,7 @@ public class GridProcessor {
         processingType = ProcessingType.SIMPLE;
         kernelSize = 10000;
         isVariable = false;
+        scale = p.getEquatorRadius();
         calculateFixedKernel();
     }
     
@@ -226,7 +232,7 @@ public class GridProcessor {
                 if(processingType == ProcessingType.SIMPLE){
                     surface = new ZevenbergenSurface(grid, i, j);
                 } else if(processingType == ProcessingType.TRAPEZOIDAL) {
-                
+                    surface = new TrapezoidalSurface(grid, i, j, scale);
                 } else {
                     
                     Point p = gfact.createPoint(new Coordinate(coords[0], coords[1]));
@@ -272,16 +278,16 @@ public class GridProcessor {
                             value = (float)Math.toDegrees(surface.getAspect());
                             break;
                         case CURV:
-                            value = (float)Math.toDegrees(surface.getCurvature());
+                            value = surface.getCurvature();
                             break;
                         case PLANCURV:
-                            value = (float)Math.toDegrees(surface.getPlanCurvature());
+                            value = surface.getPlanCurvature();
                             break;
                         case PROFCURV:
-                            value = (float)Math.toDegrees(surface.getProfileCurvature());
+                            value = surface.getProfileCurvature();
                             break;
                         case HILLSHADE:
-                            value = (float)Math.toDegrees(surface.getHillshade(hillAzimuth, hillHeight));
+                            value = surface.getHillshade(hillAzimuth, hillHeight);
                             break;
                     }
                 }
@@ -532,6 +538,7 @@ public class GridProcessor {
      * @return 
      */
     private void calculateFixedKernel(){
+        
         int width = (int)(kernelSize / grid.getHeader().res);
         if(width % 2 == 0){
             width++;

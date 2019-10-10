@@ -5,6 +5,7 @@
  */
 package autolab.grid;
 
+import com.jhlabs.map.MapMath;
 import org.locationtech.jts.geom.Coordinate;
 
 /**
@@ -13,8 +14,7 @@ import org.locationtech.jts.geom.Coordinate;
  */
 public class TrapezoidalSurface extends AbstractSurface{
     
-    double a_axis = 1.5d;
-    double b_axis = 1.0d;
+    double scale = 1;
     
     double a, b, c, d, e; // distances on ellipsoid
     
@@ -22,11 +22,11 @@ public class TrapezoidalSurface extends AbstractSurface{
         
     float z1, z2, z3, z4, z5, z6, z7, z8, z9;
     
-    private double GeodeticDistance(double lat1, double lon1, double lat2, double lon2) {
-        return 1.0d;
+    private double GeodeticDistance(double lat1, double lon1, double lat2, double lon2, double scale) {
+       return MapMath.greatCircleDistance(lon1 / scale, lat1 / scale, lon2 / scale, lat2 / scale);
     }
     
-    public TrapezoidalSurface(Geogrid grid, int i, int j){
+    public TrapezoidalSurface(Geogrid grid, int i, int j, double scale){
         
         GridHeader h = grid.getHeader();
         
@@ -55,27 +55,27 @@ public class TrapezoidalSurface extends AbstractSurface{
                 // Calculate a
                 double[] latlon1 = grid.getXYfromIJ(i-1, j-1);
                 double[] latlon2 = grid.getXYfromIJ(i-1, j);
-                a = GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1]);
+                a = scale * GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1], scale);
                 
                 // Calculate b
                 latlon1 = grid.getXYfromIJ(i, j-1);
                 latlon2 = grid.getXYfromIJ(i, j);
-                b = GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1]);
+                b = scale * GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1], scale);
                 
                 // Calculate c
                 latlon1 = grid.getXYfromIJ(i+1, j-1);
                 latlon2 = grid.getXYfromIJ(i+1, j);
-                c = GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1]);
+                c = scale * GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1], scale);
                 
                 // Calculate d
                 latlon1 = grid.getXYfromIJ(i-1, j-1);
                 latlon2 = grid.getXYfromIJ(i, j-1);
-                d = GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1]);
+                d = scale * GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1], scale);
                 
                 // Calculate e
                 latlon1 = grid.getXYfromIJ(i, j-1);
                 latlon2 = grid.getXYfromIJ(i+1, j-1);
-                e = GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1]);
+                e = scale * GeodeticDistance(latlon1[0], latlon1[1], latlon2[0], latlon2[1], scale);
                 
                 double a2 = a * a;
                 double b2 = b * b;
