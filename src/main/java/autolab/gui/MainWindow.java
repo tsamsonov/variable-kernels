@@ -68,19 +68,24 @@ public class MainWindow extends javax.swing.JFrame {
     GridLayer sourceLayer;
 
     /*
-    Layer with results of fixed kernel filtering
+    Layer with results of fixed kernel processing
     */
     GridLayer fixedLayer;
 
     /*
-    Layer with results of variable kernel filtering
+    Layer with results of variable kernel processing
     */
     GridLayer affineLayer;
 
     /*
-    Layer with results of variable kernel filtering
+    Layer with results of variable kernel processing
     */
     GridLayer directLayer;
+    
+    /*
+    Layer with results of trapezoidal kernel processing
+    */
+    GridLayer tpzLayer;
 
     /*
     Layer with areal distortions
@@ -140,6 +145,7 @@ public class MainWindow extends javax.swing.JFrame {
         displayGroup = new javax.swing.ButtonGroup();
         histGroup = new javax.swing.ButtonGroup();
         textButtonGroup = new javax.swing.ButtonGroup();
+        jComboBox1 = new javax.swing.JComboBox<>();
         progressPanel = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         xLabel = new javax.swing.JLabel();
@@ -218,20 +224,22 @@ public class MainWindow extends javax.swing.JFrame {
         fLabel = new javax.swing.JLabel();
         fixButton = new javax.swing.JButton();
         dirButton = new javax.swing.JButton();
-        trpButton = new javax.swing.JButton();
+        tpzButton = new javax.swing.JButton();
         setProjectionButton = new javax.swing.JButton();
         rightPanel = new javax.swing.JPanel();
         rasterPanel = new javax.swing.JPanel();
         sourceButton = new javax.swing.JRadioButton();
         fixedButton = new javax.swing.JRadioButton();
         affineButton = new javax.swing.JRadioButton();
-        scaleButton = new javax.swing.JRadioButton();
         directButton = new javax.swing.JRadioButton();
-        javax.swing.JButton exportButton = new javax.swing.JButton();
+        trapezoidalButton = new javax.swing.JRadioButton();
+        scaleButton = new javax.swing.JRadioButton();
+        exportButton = new javax.swing.JButton();
         zValueSource = new javax.swing.JLabel();
         zValueFixed = new javax.swing.JLabel();
         zValueAffine = new javax.swing.JLabel();
         zValueDirect = new javax.swing.JLabel();
+        zValueTpz = new javax.swing.JLabel();
         zValueAreal = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         zMinLabel = new javax.swing.JLabel();
@@ -267,6 +275,8 @@ public class MainWindow extends javax.swing.JFrame {
         wButton = new javax.swing.JRadioButton();
         sButton = new javax.swing.JRadioButton();
         GLPanel = new autolab.geolayer.MapPanel(map);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Raster Processor");
@@ -800,22 +810,22 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        trpButton.setFont(new java.awt.Font("Euphemia UCAS", 1, 13)); // NOI18N
-        trpButton.setForeground(new java.awt.Color(153, 0, 51));
-        trpButton.setText("Tpz");
-        trpButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        trpButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        trpButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        tpzButton.setFont(new java.awt.Font("Euphemia UCAS", 1, 13)); // NOI18N
+        tpzButton.setForeground(new java.awt.Color(153, 0, 51));
+        tpzButton.setText("Tpz");
+        tpzButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tpzButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tpzButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                trpButtonMouseExited(evt);
+                tpzButtonMouseExited(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                trpButtonMouseEntered(evt);
+                tpzButtonMouseEntered(evt);
             }
         });
-        trpButton.addActionListener(new java.awt.event.ActionListener() {
+        tpzButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                trpButtonActionPerformed(evt);
+                tpzButtonActionPerformed(evt);
             }
         });
 
@@ -854,9 +864,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(operationBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(procPanelLayout.createSequentialGroup()
-                                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(procPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -870,7 +878,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(trpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tpzButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(procPanelLayout.createSequentialGroup()
                         .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(procPanelLayout.createSequentialGroup()
@@ -982,7 +990,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(fixButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(affButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(trpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tpzButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(85, 85, 85))
         );
 
@@ -1055,17 +1063,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        displayGroup.add(scaleButton);
-        scaleButton.setFont(new java.awt.Font("Euphemia UCAS", 0, 13)); // NOI18N
-        scaleButton.setForeground(new java.awt.Color(0, 102, 153));
-        scaleButton.setText("Areal");
-        scaleButton.setEnabled(false);
-        scaleButton.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                scaleButtonItemStateChanged(evt);
-            }
-        });
-
         displayGroup.add(directButton);
         directButton.setFont(new java.awt.Font("Euphemia UCAS", 0, 13)); // NOI18N
         directButton.setText("Direct");
@@ -1078,6 +1075,32 @@ public class MainWindow extends javax.swing.JFrame {
         directButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 directButtonActionPerformed(evt);
+            }
+        });
+
+        displayGroup.add(trapezoidalButton);
+        trapezoidalButton.setFont(new java.awt.Font("Euphemia UCAS", 0, 13)); // NOI18N
+        trapezoidalButton.setText("Trapezoidal");
+        trapezoidalButton.setEnabled(false);
+        trapezoidalButton.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                trapezoidalButtonItemStateChanged(evt);
+            }
+        });
+        trapezoidalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trapezoidalButtonActionPerformed(evt);
+            }
+        });
+
+        displayGroup.add(scaleButton);
+        scaleButton.setFont(new java.awt.Font("Euphemia UCAS", 0, 13)); // NOI18N
+        scaleButton.setForeground(new java.awt.Color(0, 102, 153));
+        scaleButton.setText("Areal");
+        scaleButton.setEnabled(false);
+        scaleButton.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                scaleButtonItemStateChanged(evt);
             }
         });
 
@@ -1097,15 +1120,14 @@ public class MainWindow extends javax.swing.JFrame {
 
         zValueDirect.setFont(new java.awt.Font("Euphemia UCAS", 1, 12)); // NOI18N
 
+        zValueTpz.setFont(new java.awt.Font("Euphemia UCAS", 1, 12)); // NOI18N
+
         zValueAreal.setFont(new java.awt.Font("Euphemia UCAS", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout rasterPanelLayout = new javax.swing.GroupLayout(rasterPanel);
         rasterPanel.setLayout(rasterPanelLayout);
         rasterPanelLayout.setHorizontalGroup(
             rasterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rasterPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(exportButton))
             .addGroup(rasterPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(rasterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1117,19 +1139,31 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(affineButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(zValueAffine, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(rasterPanelLayout.createSequentialGroup()
-                        .addComponent(directButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(zValueDirect, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(rasterPanelLayout.createSequentialGroup()
-                        .addComponent(sourceButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(zValueSource, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(rasterPanelLayout.createSequentialGroup()
-                        .addComponent(scaleButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(zValueAreal, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(rasterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(rasterPanelLayout.createSequentialGroup()
+                            .addComponent(scaleButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(zValueAreal, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(rasterPanelLayout.createSequentialGroup()
+                            .addGroup(rasterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(rasterPanelLayout.createSequentialGroup()
+                                    .addComponent(trapezoidalButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(zValueTpz, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(rasterPanelLayout.createSequentialGroup()
+                                    .addComponent(sourceButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(zValueSource, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(0, 0, Short.MAX_VALUE)))))
+            .addGroup(rasterPanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(exportButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(rasterPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(directButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(zValueDirect, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         rasterPanelLayout.setVerticalGroup(
             rasterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1142,17 +1176,23 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(fixedButton)
                     .addComponent(zValueFixed, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
-                .addGroup(rasterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(rasterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(affineButton)
                     .addComponent(zValueAffine, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(rasterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(0, 0, 0)
+                .addGroup(rasterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(directButton)
                     .addComponent(zValueDirect, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
-                .addGroup(rasterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(scaleButton)
-                    .addComponent(zValueAreal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(rasterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(rasterPanelLayout.createSequentialGroup()
+                        .addComponent(trapezoidalButton)
+                        .addGap(0, 0, 0)
+                        .addComponent(scaleButton))
+                    .addGroup(rasterPanelLayout.createSequentialGroup()
+                        .addComponent(zValueTpz, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(zValueAreal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(exportButton)
                 .addContainerGap())
@@ -1487,12 +1527,12 @@ public class MainWindow extends javax.swing.JFrame {
             rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(rasterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rasterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(visPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136))
+                .addGap(97, 97, 97))
         );
 
         getContentPane().add(rightPanel, java.awt.BorderLayout.EAST);
@@ -1641,11 +1681,14 @@ public class MainWindow extends javax.swing.JFrame {
             // Layer 1: fixed kernel shape
             map.addLayer(fixedLayer);
 
-            // Layer 2: varible kernel shape
+            // Layer 2: affine kernel shape
             map.addLayer(affineLayer);
 
-            // Layer 3: areal distortions
+            // Layer 3: direct kernel shape
             map.addLayer(directLayer);
+            
+            // Layer 4: trapezoidal kernel shape
+            map.addLayer(tpzLayer);
 
             ((MapPanel)(GLPanel)).start();
 
@@ -1782,8 +1825,28 @@ public class MainWindow extends javax.swing.JFrame {
 
             ((MapPanel)(GLPanel)).stop();
 
-            // map has four data layers: source, fixed, affine and direct
+            // map has five data layers: 
+            // source, fixed, affine, direct and trapezoidal
             switch(type){
+                case SIMPLE:
+                default:
+                    fixedLayer = new GridLayer(result);
+                    map.setLayer(fixedLayer, 1);
+
+                    fixedButton.setSelected(true);
+                    fixedButton.setEnabled(true);
+
+                    if(affineLayer != null){
+                        affineLayer.setVisible(false);
+                    }
+                    if(directLayer != null){
+                        directLayer.setVisible(false);
+                    }
+                    if(tpzLayer != null){
+                        tpzLayer.setVisible(false);
+                    }
+
+                    break;
                 case AFFINE:
                     affineLayer = new GridLayer(result);
                     map.setLayer(affineLayer, 2);
@@ -1798,6 +1861,10 @@ public class MainWindow extends javax.swing.JFrame {
 
                     if(directLayer != null){
                         directLayer.setVisible(false);
+                    }
+                    
+                    if(tpzLayer != null){
+                        tpzLayer.setVisible(false);
                     }
 
                     break;
@@ -1815,14 +1882,19 @@ public class MainWindow extends javax.swing.JFrame {
                     if(fixedLayer != null){
                         fixedLayer.setVisible(false);
                     }
-                    break;
-                case SIMPLE:
-                default:
-                    fixedLayer = new GridLayer(result);
-                    map.setLayer(fixedLayer, 1);
+                    if(tpzLayer != null){
+                        tpzLayer.setVisible(false);
+                    }
 
-                    fixedButton.setSelected(true);
-                    fixedButton.setEnabled(true);
+                    
+                    break;
+                case TRAPEZOIDAL:
+                    tpzLayer = new GridLayer(result);
+                    map.setLayer(tpzLayer, 4);
+
+                    trapezoidalButton.setEnabled(true);
+                    trapezoidalButton.setSelected(true);
+
 
                     if(affineLayer != null){
                         affineLayer.setVisible(false);
@@ -1830,7 +1902,11 @@ public class MainWindow extends javax.swing.JFrame {
                     if(directLayer != null){
                         directLayer.setVisible(false);
                     }
+                    if(fixedLayer != null){
+                        fixedLayer.setVisible(false);
+                    }
                     break;
+                
             }
             minmaxButton.setSelected(true);
             sourceLayer.setVisible(false);
@@ -1905,219 +1981,6 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_zoomOutButtonItemStateChanged
 
-    private void affineButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_affineButtonItemStateChanged
-        int stateChange = evt.getStateChange();
-        // Display clipped graticule
-        if (stateChange == 1){
-            if(affineLayer != null){
-                affineLayer.setVisible(true);
-
-                ((MapPanel)(GLPanel)).setZLayerNumber(2);
-                ((MapPanel)(GLPanel)).setZLabel(zValueAffine);
-
-                DecimalFormat numFormat= new DecimalFormat("##,###.#");
-
-                zMinData.setText(numFormat.format(affineLayer.getGrid().getHeader().zmin));
-                zMaxData.setText(numFormat.format(affineLayer.getGrid().getHeader().zmax));
-
-                meanData.setText(numFormat.format(affineLayer.getGrid().getMean()));
-                mrsqData.setText(numFormat.format(affineLayer.getGrid().getMrsq()));
-
-                meanCorrData.setText(numFormat.format(affineLayer.getGrid().getWeightedMean()));
-                mrsqCorrData.setText(numFormat.format(affineLayer.getGrid().getWeightedMrsq()));
-
-                StretchMethod sm = affineLayer.getStretchMethod();
-
-                switch(sm){
-                    case MINMAX:
-                        minmaxButton.setSelected(true);
-                        break;
-                    case EQUALIZE:
-                        equalizeButton.setSelected(true);
-                        break;
-                    case STDEV:
-                        stdevButton.setSelected(true);
-                        break;
-                    default:
-                        minmaxButton.setSelected(true);
-                        break;
-                }
-
-            }
-            if(sourceLayer != null){
-                sourceLayer.setVisible(false);
-            }
-            if(fixedLayer != null){
-                fixedLayer.setVisible(false);
-            }
-            if(directLayer != null){
-                directLayer.setVisible(false);
-            }
-            if(distLayer != null){
-                distLayer.setVisible(false);
-            }
-
-        }
-
-    }//GEN-LAST:event_affineButtonItemStateChanged
-
-    private void fixedButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_fixedButtonItemStateChanged
-        int stateChange = evt.getStateChange();
-        // Display clipped graticule
-        if (stateChange == 1){
-            if(fixedLayer != null){
-                fixedLayer.setVisible(true);
-
-                ((MapPanel)(GLPanel)).setZLayerNumber(1);
-                ((MapPanel)(GLPanel)).setZLabel(zValueFixed);
-
-                DecimalFormat numFormat= new DecimalFormat("##,###.#");
-
-                zMinData.setText(numFormat.format(fixedLayer.getGrid().getHeader().zmin));
-                zMaxData.setText(numFormat.format(fixedLayer.getGrid().getHeader().zmax));
-
-                meanData.setText(numFormat.format(fixedLayer.getGrid().getMean()));
-                mrsqData.setText(numFormat.format(fixedLayer.getGrid().getMrsq()));
-
-                meanCorrData.setText(numFormat.format(fixedLayer.getGrid().getWeightedMean()));
-                mrsqCorrData.setText(numFormat.format(fixedLayer.getGrid().getWeightedMrsq()));
-
-                StretchMethod sm = fixedLayer.getStretchMethod();
-
-                switch(sm){
-                    case MINMAX:
-                        minmaxButton.setSelected(true);
-                        break;
-                    case EQUALIZE:
-                        equalizeButton.setSelected(true);
-                        break;
-                    case STDEV:
-                        stdevButton.setSelected(true);
-                        break;
-                    default:
-                        minmaxButton.setSelected(true);
-                        break;
-                }
-            }
-            if(sourceLayer != null){
-                sourceLayer.setVisible(false);
-            }
-            if(affineLayer != null){
-                affineLayer.setVisible(false);
-            }
-            if(directLayer != null){
-                directLayer.setVisible(false);
-            }
-            if(distLayer != null){
-                distLayer.setVisible(false);
-            }
-        }
-    }//GEN-LAST:event_fixedButtonItemStateChanged
-
-    private void sourceButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sourceButtonItemStateChanged
-        int stateChange = evt.getStateChange();
-
-        if (stateChange == 1){
-            if(sourceLayer != null){
-                sourceLayer.setVisible(true);
-
-                ((MapPanel)(GLPanel)).setZLayerNumber(0);
-                ((MapPanel)(GLPanel)).setZLabel(zValueSource);
-
-                DecimalFormat numFormat= new DecimalFormat("##,###.#");
-
-                zMinData.setText(numFormat.format(sourceLayer.getGrid().getHeader().zmin));
-                zMaxData.setText(numFormat.format(sourceLayer.getGrid().getHeader().zmax));
-
-                meanData.setText(numFormat.format(sourceLayer.getGrid().getMean()));
-                mrsqData.setText(numFormat.format(sourceLayer.getGrid().getMrsq()));
-
-                meanCorrData.setText(numFormat.format(sourceLayer.getGrid().getWeightedMean()));
-                mrsqCorrData.setText(numFormat.format(sourceLayer.getGrid().getWeightedMrsq()));
-
-                StretchMethod sm = sourceLayer.getStretchMethod();
-
-                switch(sm){
-                    case MINMAX:
-                        minmaxButton.setSelected(true);
-                        break;
-                    case EQUALIZE:
-                        equalizeButton.setSelected(true);
-                        break;
-                    case STDEV:
-                        stdevButton.setSelected(true);
-                        break;
-                    default:
-                        minmaxButton.setSelected(true);
-                        break;
-                }
-
-            }
-            if(fixedLayer != null){
-                fixedLayer.setVisible(false);
-            }
-            if(affineLayer != null){
-                affineLayer.setVisible(false);
-            }
-
-            if(directLayer != null){
-                affineLayer.setVisible(false);
-            }
-
-            if(distLayer != null){
-                distLayer.setVisible(false);
-            }
-
-
-        }
-    }//GEN-LAST:event_sourceButtonItemStateChanged
-
-    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
-        File file;
-        JFileChooser fc = new JFileChooser();
-        fc.setDialogTitle("Select data file(s)");
-        fc.setMultiSelectionEnabled(true);
-
-        FileFilter gf = new FileFilters.GridFilesFilter();
-        fc.addChoosableFileFilter(gf);
-
-        fc.setFileFilter(gf);
-
-        fc.setCurrentDirectory(new File("/Volumes/Data/Work/Raster Processing/"));
-        int res = fc.showSaveDialog(this);
-
-        if(res == JFileChooser.APPROVE_OPTION){
-
-            file = fc.getSelectedFile();
-
-            Thread loadThread;
-            loadThread = new Thread(new Runnable(){
-
-                @Override
-                public void run(){
-                    try {
-                        Geogrid g = sourceLayer.getGrid();
-                        if(fixedButton.isSelected()){
-                            g = fixedLayer.getGrid();
-                        } else if (affineButton.isSelected()){
-                            g = affineLayer.getGrid();
-                        } else if (directButton.isSelected()){
-                            g = directLayer.getGrid();
-                        } else if (scaleButton.isSelected()){
-                            g = distLayer.getGrid();
-                        }
-                        saveGrid(file, g);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            });
-
-            loadThread.start();
-
-        }
-    }//GEN-LAST:event_exportButtonActionPerformed
-
     private void fireProjectionChanged() {
         if(sourceLayer != null){
 
@@ -2178,66 +2041,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         }
     }
-
-    private void scaleButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_scaleButtonItemStateChanged
-        int stateChange = evt.getStateChange();
-
-        if (stateChange == 1){
-            if(distLayer != null){
-                distLayer.setVisible(true);
-
-                ((MapPanel)(GLPanel)).setZLayerNumber(4);
-                ((MapPanel)(GLPanel)).setZLabel(zValueAreal);
-
-                DecimalFormat numFormat= new DecimalFormat("##,###.#");
-
-                zMinData.setText(numFormat.format(distLayer.getGrid().getHeader().zmin));
-                zMaxData.setText(numFormat.format(distLayer.getGrid().getHeader().zmax));
-
-                meanData.setText(numFormat.format(distLayer.getGrid().getMean()));
-                mrsqData.setText(numFormat.format(distLayer.getGrid().getMrsq()));
-
-                meanCorrData.setText(numFormat.format(distLayer.getGrid().getWeightedMean()));
-                mrsqCorrData.setText(numFormat.format(distLayer.getGrid().getWeightedMrsq()));
-
-                StretchMethod sm = distLayer.getStretchMethod();
-
-                switch(sm){
-                    case MINMAX:
-                        minmaxButton.setSelected(true);
-                        break;
-                    case EQUALIZE:
-                        equalizeButton.setSelected(true);
-                        break;
-                    case STDEV:
-                        stdevButton.setSelected(true);
-                        break;
-                    default:
-                        minmaxButton.setSelected(true);
-                        break;
-                }
-
-            }
-
-            if(sourceLayer != null){
-                sourceLayer.setVisible(false);
-            }
-
-            if(fixedLayer != null){
-                fixedLayer.setVisible(false);
-            }
-
-            if(affineLayer != null){
-                affineLayer.setVisible(false);
-            }
-
-            if(directLayer != null){
-                directLayer.setVisible(false);
-            }
-
-
-        }
-    }//GEN-LAST:event_scaleButtonItemStateChanged
 
     private void fixButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fixButtonActionPerformed
         Thread loadThread;
@@ -2431,64 +2234,6 @@ public class MainWindow extends javax.swing.JFrame {
         loadThread.start();
     }//GEN-LAST:event_dirButtonActionPerformed
 
-    private void directButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_directButtonItemStateChanged
-        int stateChange = evt.getStateChange();
-        // Display clipped graticule
-        if (stateChange == 1){
-            if(sourceLayer != null){
-                sourceLayer.setVisible(false);
-            }
-            if(fixedLayer != null){
-                fixedLayer.setVisible(false);
-            }
-            if(affineLayer != null){
-                affineLayer.setVisible(false);
-            }
-            if(directLayer != null){
-                directLayer.setVisible(true);
-
-                ((MapPanel)(GLPanel)).setZLayerNumber(3);
-                ((MapPanel)(GLPanel)).setZLabel(zValueDirect);
-
-                DecimalFormat numFormat= new DecimalFormat("##,###.#");
-
-                zMinData.setText(numFormat.format(directLayer.getGrid().getHeader().zmin));
-                zMaxData.setText(numFormat.format(directLayer.getGrid().getHeader().zmax));
-
-                meanData.setText(numFormat.format(directLayer.getGrid().getMean()));
-                mrsqData.setText(numFormat.format(directLayer.getGrid().getMrsq()));
-
-                meanCorrData.setText(numFormat.format(directLayer.getGrid().getWeightedMean()));
-                mrsqCorrData.setText(numFormat.format(directLayer.getGrid().getWeightedMrsq()));
-
-                StretchMethod sm = directLayer.getStretchMethod();
-
-                switch(sm){
-                    case MINMAX:
-                        minmaxButton.setSelected(true);
-                        break;
-                    case EQUALIZE:
-                        equalizeButton.setSelected(true);
-                        break;
-                    case STDEV:
-                        stdevButton.setSelected(true);
-                        break;
-                    default:
-                        minmaxButton.setSelected(true);
-                        break;
-                }
-
-            }
-            if(distLayer != null){
-                distLayer.setVisible(false);
-            }
-        }
-    }//GEN-LAST:event_directButtonItemStateChanged
-
-    private void directButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_directButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_directButtonActionPerformed
-
     private void projectionBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projectionBoxActionPerformed
         projection = ProjectionFactory.getNamedProjection((String)projectionBox.getSelectedItem());
         projection.setEllipsoid(Ellipsoid.SPHERE);
@@ -2498,10 +2243,6 @@ public class MainWindow extends javax.swing.JFrame {
     private void GLPanelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GLPanelMouseMoved
 
     }//GEN-LAST:event_GLPanelMouseMoved
-
-    private void fixedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fixedButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fixedButtonActionPerformed
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
     }//GEN-LAST:event_formMouseMoved
@@ -2589,15 +2330,15 @@ public class MainWindow extends javax.swing.JFrame {
         ((MapPanel)(GLPanel)).setLabelsScale(0.5f + 1.5f*(float)value/100);
     }//GEN-LAST:event_labelScaleSliderStateChanged
 
-    private void trpButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trpButtonMouseExited
+    private void tpzButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tpzButtonMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_trpButtonMouseExited
+    }//GEN-LAST:event_tpzButtonMouseExited
 
-    private void trpButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_trpButtonMouseEntered
+    private void tpzButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tpzButtonMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_trpButtonMouseEntered
+    }//GEN-LAST:event_tpzButtonMouseEntered
 
-    private void trpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trpButtonActionPerformed
+    private void tpzButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tpzButtonActionPerformed
         Thread loadThread;
         loadThread = new Thread(new Runnable(){
             @Override
@@ -2607,7 +2348,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         loadThread.start();
-    }//GEN-LAST:event_trpButtonActionPerformed
+    }//GEN-LAST:event_tpzButtonActionPerformed
 
     private void setProjectionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setProjectionButtonActionPerformed
         Thread loadThread;
@@ -2622,16 +2363,429 @@ public class MainWindow extends javax.swing.JFrame {
         loadThread.start();
     }//GEN-LAST:event_setProjectionButtonActionPerformed
 
+    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
+        File file;
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Select data file(s)");
+        fc.setMultiSelectionEnabled(true);
+
+        FileFilter gf = new FileFilters.GridFilesFilter();
+        fc.addChoosableFileFilter(gf);
+
+        fc.setFileFilter(gf);
+
+        fc.setCurrentDirectory(new File("/Volumes/Data/Work/Raster Processing/"));
+        int res = fc.showSaveDialog(this);
+
+        if(res == JFileChooser.APPROVE_OPTION){
+
+            file = fc.getSelectedFile();
+
+            Thread loadThread;
+            loadThread = new Thread(new Runnable(){
+
+                @Override
+                public void run(){
+                    try {
+                        Geogrid g = sourceLayer.getGrid();
+                        if(fixedButton.isSelected()){
+                            g = fixedLayer.getGrid();
+                        } else if (affineButton.isSelected()){
+                            g = affineLayer.getGrid();
+                        } else if (directButton.isSelected()){
+                            g = directLayer.getGrid();
+                        } else if (trapezoidalButton.isSelected()){
+                            g = tpzLayer.getGrid();
+                        } else if (scaleButton.isSelected()){
+                            g = distLayer.getGrid();
+                        }
+                        saveGrid(file, g);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+
+            loadThread.start();
+
+        }
+    }//GEN-LAST:event_exportButtonActionPerformed
+
+    private void scaleButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_scaleButtonItemStateChanged
+        int stateChange = evt.getStateChange();
+
+        if (stateChange == 1){
+            if(distLayer != null){
+                distLayer.setVisible(true);
+
+                ((MapPanel)(GLPanel)).setZLayerNumber(5);
+                ((MapPanel)(GLPanel)).setZLabel(zValueAreal);
+
+                DecimalFormat numFormat= new DecimalFormat("##,###.#");
+
+                zMinData.setText(numFormat.format(distLayer.getGrid().getHeader().zmin));
+                zMaxData.setText(numFormat.format(distLayer.getGrid().getHeader().zmax));
+
+                meanData.setText(numFormat.format(distLayer.getGrid().getMean()));
+                mrsqData.setText(numFormat.format(distLayer.getGrid().getMrsq()));
+
+                meanCorrData.setText(numFormat.format(distLayer.getGrid().getWeightedMean()));
+                mrsqCorrData.setText(numFormat.format(distLayer.getGrid().getWeightedMrsq()));
+
+                StretchMethod sm = distLayer.getStretchMethod();
+
+                switch(sm){
+                    case MINMAX:
+                    minmaxButton.setSelected(true);
+                    break;
+                    case EQUALIZE:
+                    equalizeButton.setSelected(true);
+                    break;
+                    case STDEV:
+                    stdevButton.setSelected(true);
+                    break;
+                    default:
+                    minmaxButton.setSelected(true);
+                    break;
+                }
+
+            }
+
+            if(sourceLayer != null){
+                sourceLayer.setVisible(false);
+            }
+
+            if(fixedLayer != null){
+                fixedLayer.setVisible(false);
+            }
+
+            if(affineLayer != null){
+                affineLayer.setVisible(false);
+            }
+
+            if(directLayer != null){
+                directLayer.setVisible(false);
+            }
+            
+            if(tpzLayer != null){
+                tpzLayer.setVisible(false);
+            }
+
+        }
+    }//GEN-LAST:event_scaleButtonItemStateChanged
+
+    private void trapezoidalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trapezoidalButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_trapezoidalButtonActionPerformed
+
+    private void trapezoidalButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_trapezoidalButtonItemStateChanged
+        int stateChange = evt.getStateChange();
+        // Display clipped graticule
+        if (stateChange == 1){
+            if(sourceLayer != null){
+                sourceLayer.setVisible(false);
+            }
+            if(fixedLayer != null){
+                fixedLayer.setVisible(false);
+            }
+            if(affineLayer != null){
+                affineLayer.setVisible(false);
+            }
+            if(directLayer != null){
+                tpzLayer.setVisible(false);
+            }
+            if(tpzLayer != null){
+                tpzLayer.setVisible(true);
+
+                ((MapPanel)(GLPanel)).setZLayerNumber(4);
+                ((MapPanel)(GLPanel)).setZLabel(zValueTpz);
+
+                DecimalFormat numFormat= new DecimalFormat("##,###.#");
+
+                zMinData.setText(numFormat.format(tpzLayer.getGrid().getHeader().zmin));
+                zMaxData.setText(numFormat.format(tpzLayer.getGrid().getHeader().zmax));
+
+                meanData.setText(numFormat.format(tpzLayer.getGrid().getMean()));
+                mrsqData.setText(numFormat.format(tpzLayer.getGrid().getMrsq()));
+
+                meanCorrData.setText(numFormat.format(tpzLayer.getGrid().getWeightedMean()));
+                mrsqCorrData.setText(numFormat.format(tpzLayer.getGrid().getWeightedMrsq()));
+
+                StretchMethod sm = tpzLayer.getStretchMethod();
+
+                switch(sm){
+                    case MINMAX:
+                    minmaxButton.setSelected(true);
+                    break;
+                    case EQUALIZE:
+                    equalizeButton.setSelected(true);
+                    break;
+                    case STDEV:
+                    stdevButton.setSelected(true);
+                    break;
+                    default:
+                    minmaxButton.setSelected(true);
+                    break;
+                }
+
+            }
+            if(distLayer != null){
+                distLayer.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_trapezoidalButtonItemStateChanged
+
+    private void directButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_directButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_directButtonActionPerformed
+
+    private void directButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_directButtonItemStateChanged
+        int stateChange = evt.getStateChange();
+        // Display clipped graticule
+        if (stateChange == 1){
+            if(sourceLayer != null){
+                sourceLayer.setVisible(false);
+            }
+            if(fixedLayer != null){
+                fixedLayer.setVisible(false);
+            }
+            if(affineLayer != null){
+                affineLayer.setVisible(false);
+            }
+            if(tpzLayer != null){
+                tpzLayer.setVisible(false);
+            }
+            if(directLayer != null){
+                directLayer.setVisible(true);
+
+                ((MapPanel)(GLPanel)).setZLayerNumber(3);
+                ((MapPanel)(GLPanel)).setZLabel(zValueDirect);
+
+                DecimalFormat numFormat= new DecimalFormat("##,###.#");
+
+                zMinData.setText(numFormat.format(directLayer.getGrid().getHeader().zmin));
+                zMaxData.setText(numFormat.format(directLayer.getGrid().getHeader().zmax));
+
+                meanData.setText(numFormat.format(directLayer.getGrid().getMean()));
+                mrsqData.setText(numFormat.format(directLayer.getGrid().getMrsq()));
+
+                meanCorrData.setText(numFormat.format(directLayer.getGrid().getWeightedMean()));
+                mrsqCorrData.setText(numFormat.format(directLayer.getGrid().getWeightedMrsq()));
+
+                StretchMethod sm = directLayer.getStretchMethod();
+
+                switch(sm){
+                    case MINMAX:
+                    minmaxButton.setSelected(true);
+                    break;
+                    case EQUALIZE:
+                    equalizeButton.setSelected(true);
+                    break;
+                    case STDEV:
+                    stdevButton.setSelected(true);
+                    break;
+                    default:
+                    minmaxButton.setSelected(true);
+                    break;
+                }
+
+            }
+            if(distLayer != null){
+                distLayer.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_directButtonItemStateChanged
+
+    private void affineButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_affineButtonItemStateChanged
+        int stateChange = evt.getStateChange();
+        // Display clipped graticule
+        if (stateChange == 1){
+            if(affineLayer != null){
+                affineLayer.setVisible(true);
+
+                ((MapPanel)(GLPanel)).setZLayerNumber(2);
+                ((MapPanel)(GLPanel)).setZLabel(zValueAffine);
+
+                DecimalFormat numFormat= new DecimalFormat("##,###.#");
+
+                zMinData.setText(numFormat.format(affineLayer.getGrid().getHeader().zmin));
+                zMaxData.setText(numFormat.format(affineLayer.getGrid().getHeader().zmax));
+
+                meanData.setText(numFormat.format(affineLayer.getGrid().getMean()));
+                mrsqData.setText(numFormat.format(affineLayer.getGrid().getMrsq()));
+
+                meanCorrData.setText(numFormat.format(affineLayer.getGrid().getWeightedMean()));
+                mrsqCorrData.setText(numFormat.format(affineLayer.getGrid().getWeightedMrsq()));
+
+                StretchMethod sm = affineLayer.getStretchMethod();
+
+                switch(sm){
+                    case MINMAX:
+                    minmaxButton.setSelected(true);
+                    break;
+                    case EQUALIZE:
+                    equalizeButton.setSelected(true);
+                    break;
+                    case STDEV:
+                    stdevButton.setSelected(true);
+                    break;
+                    default:
+                    minmaxButton.setSelected(true);
+                    break;
+                }
+
+            }
+            if(sourceLayer != null){
+                sourceLayer.setVisible(false);
+            }
+            if(fixedLayer != null){
+                fixedLayer.setVisible(false);
+            }
+            if(directLayer != null){
+                directLayer.setVisible(false);
+            }
+            if(tpzLayer != null){
+                tpzLayer.setVisible(false);
+            }
+            if(distLayer != null){
+                distLayer.setVisible(false);
+            }
+
+        }
+    }//GEN-LAST:event_affineButtonItemStateChanged
+
+    private void fixedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fixedButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fixedButtonActionPerformed
+
+    private void fixedButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_fixedButtonItemStateChanged
+        int stateChange = evt.getStateChange();
+        // Display clipped graticule
+        if (stateChange == 1){
+            if(fixedLayer != null){
+                fixedLayer.setVisible(true);
+
+                ((MapPanel)(GLPanel)).setZLayerNumber(1);
+                ((MapPanel)(GLPanel)).setZLabel(zValueFixed);
+
+                DecimalFormat numFormat= new DecimalFormat("##,###.#");
+
+                zMinData.setText(numFormat.format(fixedLayer.getGrid().getHeader().zmin));
+                zMaxData.setText(numFormat.format(fixedLayer.getGrid().getHeader().zmax));
+
+                meanData.setText(numFormat.format(fixedLayer.getGrid().getMean()));
+                mrsqData.setText(numFormat.format(fixedLayer.getGrid().getMrsq()));
+
+                meanCorrData.setText(numFormat.format(fixedLayer.getGrid().getWeightedMean()));
+                mrsqCorrData.setText(numFormat.format(fixedLayer.getGrid().getWeightedMrsq()));
+
+                StretchMethod sm = fixedLayer.getStretchMethod();
+
+                switch(sm){
+                    case MINMAX:
+                    minmaxButton.setSelected(true);
+                    break;
+                    case EQUALIZE:
+                    equalizeButton.setSelected(true);
+                    break;
+                    case STDEV:
+                    stdevButton.setSelected(true);
+                    break;
+                    default:
+                    minmaxButton.setSelected(true);
+                    break;
+                }
+            }
+            if(sourceLayer != null){
+                sourceLayer.setVisible(false);
+            }
+            if(affineLayer != null){
+                affineLayer.setVisible(false);
+            }
+            if(directLayer != null){
+                directLayer.setVisible(false);
+            }
+            if(tpzLayer != null){
+                tpzLayer.setVisible(false);
+            }
+            if(distLayer != null){
+                distLayer.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_fixedButtonItemStateChanged
+
+    private void sourceButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sourceButtonItemStateChanged
+        int stateChange = evt.getStateChange();
+
+        if (stateChange == 1){
+            if(sourceLayer != null){
+                sourceLayer.setVisible(true);
+
+                ((MapPanel)(GLPanel)).setZLayerNumber(0);
+                ((MapPanel)(GLPanel)).setZLabel(zValueSource);
+
+                DecimalFormat numFormat= new DecimalFormat("##,###.#");
+
+                zMinData.setText(numFormat.format(sourceLayer.getGrid().getHeader().zmin));
+                zMaxData.setText(numFormat.format(sourceLayer.getGrid().getHeader().zmax));
+
+                meanData.setText(numFormat.format(sourceLayer.getGrid().getMean()));
+                mrsqData.setText(numFormat.format(sourceLayer.getGrid().getMrsq()));
+
+                meanCorrData.setText(numFormat.format(sourceLayer.getGrid().getWeightedMean()));
+                mrsqCorrData.setText(numFormat.format(sourceLayer.getGrid().getWeightedMrsq()));
+
+                StretchMethod sm = sourceLayer.getStretchMethod();
+
+                switch(sm){
+                    case MINMAX:
+                    minmaxButton.setSelected(true);
+                    break;
+                    case EQUALIZE:
+                    equalizeButton.setSelected(true);
+                    break;
+                    case STDEV:
+                    stdevButton.setSelected(true);
+                    break;
+                    default:
+                    minmaxButton.setSelected(true);
+                    break;
+                }
+
+            }
+            if(fixedLayer != null){
+                fixedLayer.setVisible(false);
+            }
+            if(affineLayer != null){
+                affineLayer.setVisible(false);
+            }
+
+            if(directLayer != null){
+                affineLayer.setVisible(false);
+            }
+            if(tpzLayer != null){
+                tpzLayer.setVisible(false);
+            }
+            if(distLayer != null){
+                distLayer.setVisible(false);
+            }
+
+        }
+    }//GEN-LAST:event_sourceButtonItemStateChanged
+
     private void fireHistogramStretchChanged(){
         GridLayer lyr = sourceLayer;
-        if(fixedButton.isSelected()){
+        
+        if (sourceButton.isSelected()){
+            lyr = sourceLayer;
+        } else if(fixedButton.isSelected()){
             lyr = fixedLayer;
         } else if (affineButton.isSelected()){
             lyr = affineLayer;
         } else if (directButton.isSelected()){
             lyr = directLayer;
-        } else if (sourceButton.isSelected()){
-            lyr = sourceLayer;
+        } else if (trapezoidalButton.isSelected()){
+            lyr = tpzLayer;
         } else {
             lyr = distLayer;
         }
@@ -2709,6 +2863,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton directButton;
     private javax.swing.ButtonGroup displayGroup;
     private javax.swing.JRadioButton equalizeButton;
+    private javax.swing.JButton exportButton;
     private javax.swing.JLabel fLabel;
     private javax.swing.JSpinner fSpinner;
     private javax.swing.JLabel fileLabel;
@@ -2720,6 +2875,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox graticuleBox;
     private javax.swing.JRadioButton hButton;
     private javax.swing.ButtonGroup histGroup;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -2796,7 +2952,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox tissotBox;
     private javax.swing.JSlider tissotSlider;
     private javax.swing.JPanel toolsPanel;
-    private javax.swing.JButton trpButton;
+    private javax.swing.JButton tpzButton;
+    private javax.swing.JRadioButton trapezoidalButton;
     private javax.swing.JPanel visPanel;
     private javax.swing.JCheckBox voronoyBox;
     private javax.swing.JRadioButton wButton;
@@ -2821,6 +2978,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel zValueDirect;
     private javax.swing.JLabel zValueFixed;
     private javax.swing.JLabel zValueSource;
+    private javax.swing.JLabel zValueTpz;
     private javax.swing.JToggleButton zoomInButton;
     private javax.swing.JToggleButton zoomOutButton;
     // End of variables declaration//GEN-END:variables
