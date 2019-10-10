@@ -22,7 +22,7 @@ public class TrapezoidalSurface extends AbstractSurface{
         
     float z1, z2, z3, z4, z5, z6, z7, z8, z9;
     
-    private double GeodeticDistance(double lat1, double lon1, double lat2, double lon2, double scale) {
+    private double GeodeticDistance(double lon1, double lat1, double lon2, double lat2, double scale) {
        return MapMath.greatCircleDistance(lon1 / scale, lat1 / scale, lon2 / scale, lat2 / scale);
     }
     

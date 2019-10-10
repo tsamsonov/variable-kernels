@@ -58,7 +58,7 @@ public class ZevenbergenSurface extends AbstractSurface{
         }
     }
     
-    public ZevenbergenSurface(Geogrid grid, int i, int j, Coordinate[] kernel){
+    public ZevenbergenSurface(Geogrid grid, int i, int j, Coordinate[] kernel, double scale){
         
         GridHeader h = grid.getHeader();
         
@@ -92,8 +92,8 @@ public class ZevenbergenSurface extends AbstractSurface{
                 D = ((z4 + z6)/2.f - z5) / Math.pow(h.res, 2);
                 E = ((z2 + z8)/2.f - z5) / Math.pow(h.res, 2);
                 F = (-z1 + z3 + z7 - z9) / (4 * Math.pow(h.res, 2));
-                G = (float)(-z4 + z6) / (2.f * h.res);
-                H = (float)(z2 - z8) / (2.f * h.res);
+                G = (double)(-z4 + z6) * scale / (2.f * h.res);
+                H = (double)(z2 - z8) * scale / (2.f * h.res);
                 I = z5;
 
                 initialized = true;

@@ -254,7 +254,7 @@ public class GridProcessor {
                                 matrix[i][j] = Float.NaN;
                                 surface = null;
                             } else {
-                                surface = new ZevenbergenSurface(grid, i, j, kernel);
+                                surface = new ZevenbergenSurface(grid, i, j, kernel, controlFactors[nzone].a);
                                 zone.setUserData(true);
                             }
                             break;
@@ -620,9 +620,9 @@ public class GridProcessor {
         GridHeader h = grid.getHeader();
         Coordinate[] coords = new Coordinate[9];
         
-        double lambdaScale = dFactor * factors.h;
+        double lambdaScale = dFactor * factors.h / factors.a;
         
-        double phiScale = dFactor * factors.k;
+        double phiScale = dFactor * factors.k / factors.a;
         
 //      NW---N---NE   0----1----2
 //      |    |    |   |    |    |
@@ -663,13 +663,13 @@ public class GridProcessor {
         North-East
         */
         alpha = Math.atan(
-                factors.k * sintheta/
-               (factors.h + factors.k * costheta)
+                phiScale * sintheta/
+               (lambdaScale + phiScale * costheta)
         );
         
         mu = Math.sqrt(
-                (Math.pow(factors.h, 2) + Math.pow(factors.k, 2))*0.5 +
-                 factors.h * factors.k * costheta
+                (Math.pow(lambdaScale, 2) + Math.pow(phiScale, 2))*0.5 +
+                 lambdaScale * phiScale * costheta
         );
         
         dist = h.res * mu * Math.sqrt(2.d);
@@ -681,13 +681,13 @@ public class GridProcessor {
         South-East
         */
         alpha = Math.atan(
-                -factors.k * sintheta/
-               (factors.h - factors.k * costheta)
+                -phiScale * sintheta/
+               (lambdaScale - phiScale * costheta)
         ) + Math.PI;
         
         mu = Math.sqrt(
-                (Math.pow(factors.h, 2) + Math.pow(factors.k, 2))*0.5 -
-                 factors.h * factors.k * costheta
+                (Math.pow(lambdaScale, 2) + Math.pow(phiScale, 2))*0.5 -
+                 lambdaScale * phiScale * costheta
         );
         
         dist = h.res * mu * Math.sqrt(2.d);
@@ -699,13 +699,13 @@ public class GridProcessor {
         South-West
         */
         alpha = Math.atan(
-                factors.k * sintheta/
-               (factors.h + factors.k * costheta)
+                phiScale * sintheta/
+               (lambdaScale + phiScale * costheta)
         ) + Math.PI;
         
         mu = Math.sqrt(
-                (Math.pow(factors.h, 2) + Math.pow(factors.k, 2))*0.5 +
-                 factors.h * factors.k * costheta
+                (Math.pow(lambdaScale, 2) + Math.pow(phiScale, 2))*0.5 +
+                 lambdaScale * phiScale * costheta
         );
         
         dist = h.res * mu * Math.sqrt(2.d);
@@ -717,13 +717,13 @@ public class GridProcessor {
         North-West
         */
         alpha = Math.atan(
-                -factors.k * sintheta/
-               (factors.h - factors.k * costheta)
+                -phiScale * sintheta/
+               (lambdaScale - factors.k * costheta)
         );
         
         mu = Math.sqrt(
-                (Math.pow(factors.h, 2) + Math.pow(factors.k, 2))*0.5 -
-                 factors.h * factors.k * costheta
+                (Math.pow(lambdaScale, 2) + Math.pow(phiScale, 2))*0.5 -
+                 lambdaScale * phiScale * costheta
         );
         
         dist = h.res * mu * Math.sqrt(2.d);
@@ -751,9 +751,9 @@ public class GridProcessor {
             }
         }
         
-        double lambdaScale = dFactor * factors.h;
+        double lambdaScale = dFactor * factors.h / factors.a;
         
-        double phiScale = dFactor * factors.k;
+        double phiScale = dFactor * factors.k / factors.a;
         
         MultiPoint kernel = gfact.createMultiPointFromCoords(coords);
         
