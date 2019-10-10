@@ -137,15 +137,15 @@ public class ZevenbergenSurface extends AbstractSurface{
     @Override
     public float getAspect() {
         float aspect = (float) (Math.atan2(G, H));
-//        if(aspect>0){
-//            if(aspect <= 0.5*Math.PI){
-//                aspect = (float) (0.5*Math.PI - aspect);
-//            } else {
-//                aspect = (float) (2.5 * Math.PI - aspect);
-//            }
-//        } else {
-//            aspect = (float) (0.5*Math.PI - aspect);
-//        }
+        if(aspect>0){
+            if(aspect <= 0.5*Math.PI){
+                aspect = (float) (0.5*Math.PI - aspect);
+            } else {
+                aspect = (float) (2.5 * Math.PI - aspect);
+            }
+        } else {
+            aspect = (float) (0.5*Math.PI - aspect);
+        }
         return aspect;
     }
 

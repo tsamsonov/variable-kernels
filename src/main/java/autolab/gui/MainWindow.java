@@ -226,6 +226,7 @@ public class MainWindow extends javax.swing.JFrame {
         dirButton = new javax.swing.JButton();
         tpzButton = new javax.swing.JButton();
         setProjectionButton = new javax.swing.JButton();
+        setGraticuleButton = new javax.swing.JButton();
         rightPanel = new javax.swing.JPanel();
         rasterPanel = new javax.swing.JPanel();
         sourceButton = new javax.swing.JRadioButton();
@@ -843,6 +844,20 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        setGraticuleButton.setFont(new java.awt.Font("Euphemia UCAS", 1, 10)); // NOI18N
+        setGraticuleButton.setForeground(new java.awt.Color(153, 0, 153));
+        setGraticuleButton.setText("Set");
+        setGraticuleButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        setGraticuleButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        setGraticuleButton.setMinimumSize(new java.awt.Dimension(12, 10));
+        setGraticuleButton.setPreferredSize(new java.awt.Dimension(12, 10));
+        setGraticuleButton.setSize(new java.awt.Dimension(97, 10));
+        setGraticuleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setGraticuleButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout procPanelLayout = new javax.swing.GroupLayout(procPanel);
         procPanel.setLayout(procPanelLayout);
         procPanelLayout.setHorizontalGroup(
@@ -890,41 +905,47 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(phiSpinner)
                                     .addComponent(latSpinner)))
-                            .addComponent(tissotBox))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(clipBox))
-                    .addComponent(graticuleBox)
-                    .addGroup(procPanelLayout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(3, 3, 3)
-                        .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lamSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(longSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(procPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel13))
-                    .addGroup(procPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(voronoyBox))
-                    .addGroup(procPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(kernelSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(procPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(projectionDetailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(setProjectionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(procPanelLayout.createSequentialGroup()
+                                .addComponent(tissotBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(clipBox))
+                            .addGroup(procPanelLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel13))
+                            .addGroup(procPanelLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(voronoyBox))
+                            .addGroup(procPanelLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(kernelSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(procPanelLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(projectionDetailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(setProjectionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(procPanelLayout.createSequentialGroup()
+                                    .addComponent(graticuleBox)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(setGraticuleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(procPanelLayout.createSequentialGroup()
+                                    .addGap(91, 91, 91)
+                                    .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(3, 3, 3)
+                                    .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lamSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(longSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         procPanelLayout.setVerticalGroup(
@@ -938,10 +959,10 @@ public class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(projectionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(graticuleBox)
-                    .addComponent(clipBox))
-                .addGap(1, 1, 1)
+                .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(setGraticuleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(graticuleBox))
+                .addGap(5, 5, 5)
                 .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(latSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -954,7 +975,9 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(lamSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tissotBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tissotBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clipBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(procPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tissotSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2118,11 +2141,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_tissotSliderStateChanged
 
     private void lamSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_lamSpinnerStateChanged
-        fireGraticuleChanged();
+        
     }//GEN-LAST:event_lamSpinnerStateChanged
 
     private void phiSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_phiSpinnerStateChanged
-        fireGraticuleChanged();
+        
     }//GEN-LAST:event_phiSpinnerStateChanged
 
     private void kernelSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_kernelSpinnerStateChanged
@@ -2186,11 +2209,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_graticuleBoxItemStateChanged
 
     private void longSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_longSpinnerStateChanged
-        fireGraticuleChanged();
+        
     }//GEN-LAST:event_longSpinnerStateChanged
 
     private void latSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_latSpinnerStateChanged
-        fireGraticuleChanged();
+        
     }//GEN-LAST:event_latSpinnerStateChanged
 
     private void kernelSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_kernelSliderStateChanged
@@ -2773,6 +2796,10 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_sourceButtonItemStateChanged
 
+    private void setGraticuleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setGraticuleButtonActionPerformed
+        fireGraticuleChanged();
+    }//GEN-LAST:event_setGraticuleButtonActionPerformed
+
     private void fireHistogramStretchChanged(){
         GridLayer lyr = sourceLayer;
         
@@ -2941,6 +2968,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton sButton;
     private javax.swing.JRadioButton scaleButton;
     private javax.swing.JToggleButton selectButton;
+    private javax.swing.JButton setGraticuleButton;
     private javax.swing.JButton setProjectionButton;
     private javax.swing.JRadioButton sourceButton;
     private javax.swing.JToggleButton squareButton;
