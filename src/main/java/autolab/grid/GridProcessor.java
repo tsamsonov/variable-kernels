@@ -236,9 +236,23 @@ public class GridProcessor {
                 } else {
                     
                     Point p = gfact.createPoint(new Coordinate(coords[0], coords[1]));
+                    
+                    Point2D.Double geoPt = new java.awt.geom.Point2D.Double();
+                    projection.inverseTransformRadians(new Point2D.Double(p.getX(), p.getY()), geoPt);
+                    ProjectionFactors controlFactors = new ProjectionFactors();
+                    controlFactors.compute(projection, geoPt.x, geoPt.y, EPS);
+                    
+                    Coordinate[] kernel;
+                    
+                    if(processingType == ProcessingType.AFFINE)
+                        kernel = calculateVariableSurfaceKernelAffine(controlFactors);
+                    else 
+                        kernel = calculateVariableSurfaceKernelDirect(controlFactors);
+                    
+                    surface = new ZevenbergenSurface(grid, i, j, kernel, controlFactors.a);
 
                     // Find kernel
-                    nzone = 0;
+/*                    nzone = 0;
                     while (nzone < controlZones.getNumGeometries()) {
                         Geometry zone = controlZones.getGeometryN(nzone);
                         if (p.intersects(zone)){
@@ -254,7 +268,7 @@ public class GridProcessor {
                                 matrix[i][j] = Float.NaN;
                                 surface = null;
                             } else {
-                                surface = new ZevenbergenSurface(grid, i, j, kernel, controlFactors[nzone].a);
+                                surface = new ZevenbergenSurface(grid, i, j, kernel, controlFactors.a);
                                 zone.setUserData(true);
                             }
                             break;
@@ -266,6 +280,7 @@ public class GridProcessor {
                         matrix[i][j] = Float.NaN;
                         surface = null;
                     }
+*/
                 }
                 
                 if(surface != null && surface.initialized){
