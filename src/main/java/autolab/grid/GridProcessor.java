@@ -151,7 +151,7 @@ public class GridProcessor {
         return isVariable;
     }
     
-    public void execute(BoundedRangeModel progress, Point ptIndicator){
+    public void execute(BoundedRangeModel progress/*, Point ptIndicator*/){
         switch(filterMethod){
             case SLOPE:
             case HILLSHADE:
@@ -159,13 +159,13 @@ public class GridProcessor {
             case PLANCURV:
             case PROFCURV:
             case CURV:
-                surfaceFilter(progress, ptIndicator);
+                surfaceFilter(progress/*, ptIndicator*/);
                 break;
             case MEAN:
-                meanFilter(progress, ptIndicator);
+                meanFilter(progress/*, ptIndicator*/);
                 break;
             case DISTAREAL:
-                distArealFilter(progress, ptIndicator);
+                distArealFilter(progress/*, ptIndicator*/);
                 break;
             case VECTOR: return;
             case SCALAR: return;
@@ -196,7 +196,7 @@ public class GridProcessor {
      * @param progress
      * @param ptIndicator 
      */
-    private void surfaceFilter(BoundedRangeModel progress, Point ptIndicator){
+    private void surfaceFilter(BoundedRangeModel progress/*, Point ptIndicator*/){
         
         GeometryFactory gfact = new GeometryFactory();
         
@@ -222,8 +222,8 @@ public class GridProcessor {
                 
                 double[] coords = grid.getXYfromIJ(i, j);
 
-                ptIndicator.getCoordinateSequence().setOrdinate(0, 0, coords[0]);
-                ptIndicator.getCoordinateSequence().setOrdinate(0, 1, coords[1]);
+//                ptIndicator.getCoordinateSequence().setOrdinate(0, 0, coords[0]);
+//                ptIndicator.getCoordinateSequence().setOrdinate(0, 1, coords[1]);
 
                 if(coords == null){
                     matrix[i][j] = Float.NaN;
@@ -325,7 +325,7 @@ public class GridProcessor {
         }
     }
     
-    private void distArealFilter(BoundedRangeModel progress, Point ptIndicator){
+    private void distArealFilter(BoundedRangeModel progress/*, Point ptIndicator*/){
         GridHeader h = grid.getHeader();
         
         float[][] matrix = new float[h.nrow][h.ncol];
@@ -343,8 +343,8 @@ public class GridProcessor {
                 
                 double[] coords = grid.getXYfromIJ(i, j);
                 
-                ptIndicator.getCoordinateSequence().setOrdinate(0, 0, coords[0]);
-                ptIndicator.getCoordinateSequence().setOrdinate(0, 1, coords[1]);
+//                ptIndicator.getCoordinateSequence().setOrdinate(0, 0, coords[0]);
+//                ptIndicator.getCoordinateSequence().setOrdinate(0, 1, coords[1]);
                 
                 Point2D.Double geoPt = new java.awt.geom.Point2D.Double();
                 projection.inverseTransformRadians(new Point2D.Double(coords[0], coords[1]), geoPt);
@@ -381,7 +381,7 @@ public class GridProcessor {
         grid2 = new Geogrid(matrix, h2);
     }
     
-    private void meanFilter(BoundedRangeModel progress, Point ptIndicator){
+    private void meanFilter(BoundedRangeModel progress/*, Point ptIndicator*/){
         GridHeader h = grid.getHeader();
         
         float[][] matrix = new float[h.nrow][h.ncol];
@@ -399,8 +399,8 @@ public class GridProcessor {
                 
                 double[] coords = grid.getXYfromIJ(i, j);
                 
-                ptIndicator.getCoordinateSequence().setOrdinate(0, 0, coords[0]);
-                ptIndicator.getCoordinateSequence().setOrdinate(0, 1, coords[1]);
+//                ptIndicator.getCoordinateSequence().setOrdinate(0, 0, coords[0]);
+//                ptIndicator.getCoordinateSequence().setOrdinate(0, 1, coords[1]);
                 
                 float z = meanFilter(i,j);
 

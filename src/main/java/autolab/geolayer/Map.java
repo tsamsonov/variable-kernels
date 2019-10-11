@@ -22,19 +22,19 @@ public class Map {
     */
     ArrayList<Layer> layers;
     
-    Point cursor;
+//    Point cursor;
     
-    PointSimple cursorSymbol;
+//    PointSimple cursorSymbol;
     
-    boolean showCursor = false;
+//    boolean showCursor = false;
     
     public Map(){
         layers = new ArrayList<>();
         
         GeometryFactory gfact = new GeometryFactory();
-        cursor = gfact.createPoint(new Coordinate(0, 0));
+//        cursor = gfact.createPoint(new Coordinate(0, 0));
         
-        cursorSymbol = new PointSimple();
+//        cursorSymbol = new PointSimple();
     }
     
     public void addLayer(Layer lyr){
@@ -48,18 +48,18 @@ public class Map {
                 l.draw(drawable);
         }
         
-        if(showCursor){
-            cursorSymbol.draw(cursor, drawable);
-        }
+//        if(showCursor){
+//            cursorSymbol.draw(cursor, drawable);
+//        }
     }
     
-    public Point getCursor(){
-        return cursor;
-    }
-    
-    public void showCursor(boolean show){
-        showCursor = show;
-    }
+//    public Point getCursor(){
+//        return cursor;
+//    }
+//    
+//    public void showCursor(boolean show){
+//        showCursor = show;
+//    }
     
     public void setLayer(Layer lyr, int n){
         if(n > 0 && n < layers.size()){

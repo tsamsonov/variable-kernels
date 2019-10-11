@@ -1796,7 +1796,7 @@ public class MainWindow extends javax.swing.JFrame {
 
             progressBar.setValue(100);
 
-            sleep(500);
+            sleep(200);
 
             progressModel.setValue(0);
 
@@ -1824,9 +1824,9 @@ public class MainWindow extends javax.swing.JFrame {
             gp.setControlZones(((MapPanel)(GLPanel)).getControlZones());
             gp.setFilterMethod((FilterMethod)operationBox.getSelectedItem());
 
-            map.showCursor(true);
-            gp.execute(progressModel, map.getCursor());
-            map.showCursor(false);
+//            map.showCursor(true);
+            gp.execute(progressModel/*, map.getCursor()*/);
+//            map.showCursor(false);
 
             Geogrid result = gp.getResult();
 
